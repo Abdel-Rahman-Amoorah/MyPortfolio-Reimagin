@@ -25,22 +25,6 @@ export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent">("idle")
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setFormStatus("sending")
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    setFormStatus("sent")
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormStatus("idle")
-        ; (e.target as HTMLFormElement).reset()
-    }, 3000)
-  }
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     element?.scrollIntoView({ behavior: "smooth" })
@@ -93,6 +77,7 @@ export default function Portfolio() {
                   {item}
                 </button>
               ))}
+              <ThemeToggle />
             </div>
           </div>
         )}
