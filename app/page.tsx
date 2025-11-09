@@ -691,7 +691,7 @@ export default function Portfolio() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">© 2025 Abdel-Rahman Amoorah. All rights reserved.</p>
             <p className="text-sm text-muted-foreground">
-              Built with <span className="text-primary">Benaa-ai</span>
+              Built with <span className="text-primary"><a href="mailto:abdulrhmanammourah@gmail.com">Benaa-ai</a></span>
             </p>
           </div>
         </div>
