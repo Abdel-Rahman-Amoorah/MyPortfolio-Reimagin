@@ -6,6 +6,10 @@ import { Card } from "./components/ui/card"
 import { Input } from "./components/ui/input"
 import { Textarea } from "./components/ui/textarea"
 import { ThemeToggle } from "./components/theme-toggle"
+import { LanguageToggle } from "./components/language-toggle"
+import { useTranslation } from "./lib/useTranslation"
+import { parseRichText } from "./lib/parseRichText"
+
 import {
   Shield,
   Code,
@@ -21,7 +25,9 @@ import {
   CheckCircle2,
 } from "lucide-react"
 
+
 export default function Portfolio() {
+  const { t, lang } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent">("idle")
 
@@ -32,29 +38,31 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background ">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl mx-20">
         <div className="container mx-auto px-6">
           <div className="flex h-16 items-center justify-between">
-            <div className="text-2xl font-bold">
-              <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            <div className="text-2xl font-bold hover:bg-primary/35 rounded-2xl">
+              <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent cursor-pointer"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 AA
               </span>
             </div>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
-              {["About", "Experience", "Skills", "Projects", "Contact"].map((item) => (
+              {["about", "experience", "skills", "projects", "contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {item}
+                  {t("header" + item)}
                 </button>
               ))}
               <ThemeToggle />
+              <LanguageToggle />
             </div>
 
             {/* Mobile Menu Button */}
@@ -68,16 +76,17 @@ export default function Portfolio() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur-xl">
             <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
-              {["About", "Experience", "Skills", "Projects", "Contact"].map((item) => (
+              {["about", "experience", "skills", "projects", "contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
                   className="text-left text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {item}
+                  {t("header" + item)}
                 </button>
               ))}
               <ThemeToggle />
+              <LanguageToggle />
             </div>
           </div>
         )}
@@ -95,30 +104,28 @@ export default function Portfolio() {
         <div className="container mx-auto relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-4 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <p className="text-sm text-primary font-medium">Available for Opportunities</p>
+              <p className="text-sm text-primary font-medium">{t("available")}</p>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
-              Abdel-Rahman Amoorah
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 bg-linear-to-r from-foreground via-primary pb-4 to-foreground bg-clip-text text-transparent">
+              {t("name")}
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              Full Stack Developer & Cybersecurity Specialist
+              {t("title")}
             </p>
 
             <p className="text-lg text-muted-foreground/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Building secure, responsive applications while defending against threats. Passionate about Blue Team
-              operations, SOC tools, and crafting user-friendly solutions with React, Node.js, and modern security
-              frameworks.
+              {t("description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Button size="lg" onClick={() => scrollToSection("projects")} className="group">
-                View Projects
+                {t("viewProjects")}
                 <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button size="lg" variant="outline" onClick={() => scrollToSection("contact")}>
-                Get In Touch
+                {t("getInTouch")}
               </Button>
             </div>
 
@@ -161,7 +168,7 @@ export default function Portfolio() {
       <section id="about" className="py-24 px-6">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            About <span className="text-primary">Me</span>
+            <span className="text-primary">{t("about")} </span>
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12">
@@ -169,26 +176,26 @@ export default function Portfolio() {
               <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur">
                 <div className="flex items-center gap-3 mb-4">
                   <Shield className="h-6 w-6 text-primary" />
-                  <h3 className="text-2xl font-bold">Education</h3>
+                  <h3 className="text-2xl font-bold">{t("education")}</h3>
                 </div>
                 <div className="space-y-3">
                   <div>
-                    <p className="font-semibold text-lg">B.Sc. in Cyber Security</p>
-                    <p className="text-muted-foreground">Jordan University of Science and Technology</p>
-                    <p className="text-sm text-primary">GPA: 3.52/4.0 (Excellent)</p>
+                    <p className="font-semibold text-lg">{t("degree")}</p>
+                    <p className="text-muted-foreground">{t("university")}</p>
+                    <p className="text-sm text-primary">{t("GPA")}</p>
                   </div>
                   <div className="flex flex-wrap gap-2 mt-4">
                     <span className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20">
-                      Ethical Hacking
+                      {t("CEthicalHacking")}
                     </span>
                     <span className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20">
-                      Network Security
+                      {t("CNetworkSecurity")}
                     </span>
                     <span className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20">
-                      Digital Forensics
+                      {t("CSoftwareSecurity")}
                     </span>
                     <span className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20">
-                      Cryptography
+                      {t("CCryptography")}
                     </span>
                   </div>
                 </div>
@@ -197,28 +204,28 @@ export default function Portfolio() {
               <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur">
                 <div className="flex items-center gap-3 mb-4">
                   <Terminal className="h-6 w-6 text-accent" />
-                  <h3 className="text-2xl font-bold">Certifications</h3>
+                  <h3 className="text-2xl font-bold">{t("certifications")}</h3>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-accent mt-1 shrink-0" />
                     <div>
                       <p className="font-semibold">CompTIA Security+</p>
-                      <p className="text-sm text-muted-foreground">Earned: May 2025</p>
+                      <p className="text-sm text-muted-foreground">{t("earnSec+")}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-accent mt-1 shrink-0" />
                     <div>
                       <p className="font-semibold">CCT-Fast-Track</p>
-                      <p className="text-sm text-muted-foreground">Earned: Sep 2025</p>
+                      <p className="text-sm text-muted-foreground">{t("earnCCT+")}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="h-5 w-5 rounded-full border-2 border-primary/40 mt-1 shrink-0" />
                     <div>
                       <p className="font-semibold">CCNA</p>
-                      <p className="text-sm text-muted-foreground">Currently studying</p>
+                      <p className="text-sm text-muted-foreground">{t("CCNA")}</p>
                     </div>
                   </div>
                 </div>
@@ -227,30 +234,26 @@ export default function Portfolio() {
 
             <div className="flex flex-col justify-center space-y-6">
               <p className="text-lg leading-relaxed text-muted-foreground">
-                I&apos;m passionate about <span className="text-primary font-semibold">Blue Team operations</span>, SOC
-                tools, and developing secure, user-friendly applications. My expertise spans across cybersecurity
-                fundamentals, software development, and practical security implementations.
+                {parseRichText(t("aboutParagraph1"))}
               </p>
+
               <p className="text-lg leading-relaxed text-muted-foreground">
-                With hands-on experience in{" "}
-                <span className="text-primary font-semibold">React, Node.js, React Native, and Express</span>, coupled
-                with a strong foundation in network security, SIEM monitoring, and threat detection, I build solutions
-                that prioritize both functionality and security.
+                {parseRichText(t("aboutParagraph2"))}
               </p>
               <div className="flex gap-4 pt-4">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">1+</div>
-                  <div className="text-sm text-muted-foreground">Years Experience</div>
+                  <div className="text-sm text-muted-foreground"> {t("yearsExperience")}</div>
                 </div>
                 <div className="border-l border-border" />
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">5+</div>
-                  <div className="text-sm text-muted-foreground">Projects Completed</div>
+                  <div className="text-sm text-muted-foreground">{t("projectsCompleted")}</div>
                 </div>
                 <div className="border-l border-border" />
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">2</div>
-                  <div className="text-sm text-muted-foreground">Certifications</div>
+                  <div className="text-sm text-muted-foreground">{t("certificationsCount")}</div>
                 </div>
               </div>
             </div>
@@ -262,75 +265,87 @@ export default function Portfolio() {
       <section id="experience" className="py-24 px-6 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            Professional <span className="text-primary">Experience</span>
+            {parseRichText(t("experience"))}
           </h2>
 
-          <div className="space-y-8 relative before:absolute before:left-8 before:top-0 before:bottom-0 before:w-px before:bg-linear-to-b before:from-primary before:via-accent before:to-primary md:before:left-1/2">
-
-            {/* Freelance — LEFT side */}
-            <div className="relative md:grid md:grid-cols-2 md:gap-8">
-              <div className="md:text-right md:pr-12">
+          <div
+            className={`space-y-8 relative before:absolute before:top-0 before:bottom-0 before:w-px before:bg-linear-to-b before:from-primary before:via-accent before:to-primary ${lang === "ar" ? "before:right-8 md:before:right-1/2" : "before:left-8 md:before:left-1/2"
+              }`}
+          >
+            {/* Freelance \*/}
+            <div className={`relative md:grid md:grid-cols-2 md:gap-8 ${lang === "ar" ? "md:[direction:rtl]" : ""}`}>
+              <div className={lang === "ar" ? "md:text-left md:pl-12" : "md:text-right md:pr-12"}>
                 <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2">
-                  Sep 2025 – Present
+                  {t("FreeDate")}
                 </span>
               </div>
               <Card className="ml-16 md:ml-0 p-6 border-primary/20 bg-card/80 backdrop-blur">
                 <div className="flex items-center gap-3 mb-3">
                   <Code className="h-5 w-5 text-primary" />
-                  <h3 className="text-xl font-bold">Freelance Developer</h3>
+                  <h3 className="text-xl font-bold">{t("FreelancePosition")}</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">Remote</p>
+                <p className="text-muted-foreground mb-4">{t("freelanceWork")}</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Developed and deployed web, mobile, and desktop apps using React, Next.js, React Native, and Electron</li>
-                  <li>• Built RESTful APIs with Node.js + Express, including authentication and secure data handling</li>
-                  <li>• Implemented responsive designs and optimized application performance</li>
+                  <li>• {t("freePoint1")}</li>
+                  <li>• {t("freePoint2")}</li>
+                  <li>• {t("freePoint3")}</li>
                 </ul>
               </Card>
-              <div className="absolute left-8 top-8 w-3 h-3 bg-primary rounded-full md:left-1/2 md:-translate-x-1/2" />
+              <div
+                className={`absolute top-8 w-3 h-3 rounded-full ${lang === "ar"
+                  ? "bg-primary right-8 md:right-1/2 md:translate-x-1/2"
+                  : "bg-primary left-8 md:left-1/2 md:-translate-x-1/2"
+                  }`}
+              />
             </div>
 
-            {/* GIG Program — RIGHT side */}
+            {/* GIG Program */}
             <div className="relative md:grid md:grid-cols-2 md:gap-8">
               <div className="md:order-1 md:pl-12">
                 <span className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-semibold mb-2">
-                  Jul 2025 – Nov 2025
+                  {t("GIGDate")}
                 </span>
               </div>
               <Card className="ml-16 md:ml-0 p-6 border-accent/20 bg-card/80 backdrop-blur md:order-0">
                 <div className="flex items-center gap-3 mb-3">
                   <Shield className="h-5 w-5 text-accent" />
-                  <h3 className="text-xl font-bold">Cyber Security GIG Program</h3>
+                  <h3 className="text-xl font-bold">{t("GIGPosition")}</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">Green Circle, Jordan</p>
+                <p className="text-muted-foreground mb-4">{t("GIGwork")}</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Covered core cybersecurity foundations: threats, vulnerabilities, and risk management</li>
-                  <li>• Practical workflows for vulnerability assessment and incident response</li>
-                  <li>• Hands-on experience with SIEM monitoring and security tools</li>
+                  <li>• {t("GIGPoint1")}</li>
+                  <li>• {t("GIGPoint2")}</li>
+                  <li>• {t("GIGPoint3")}</li>
                 </ul>
               </Card>
               <div className="absolute left-8 top-8 w-3 h-3 bg-accent rounded-full md:left-1/2 md:-translate-x-1/2" />
             </div>
 
-            {/* JoVision — LEFT side again */}
-            <div className="relative md:grid md:grid-cols-2 md:gap-8">
-              <div className="md:text-right md:pr-12">
+            {/* JoVision */}
+            <div className={`relative md:grid md:grid-cols-2 md:gap-8 ${lang === "ar" ? "md:[direction:rtl]" : ""}`}>
+              <div className={lang === "ar" ? "md:text-left md:pl-12" : "md:text-right md:pr-12"}>
                 <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2">
-                  May 2024 – Oct 2024
+                  {t("JoDate")}
                 </span>
               </div>
               <Card className="ml-16 md:ml-0 p-6 border-primary/20 bg-card/80 backdrop-blur">
                 <div className="flex items-center gap-3 mb-3">
                   <Code className="h-5 w-5 text-primary" />
-                  <h3 className="text-xl font-bold">Mobile Development Intern</h3>
+                  <h3 className="text-xl font-bold">{t("JoVisionPosition")}</h3>
                 </div>
-                <p className="text-muted-foreground mb-4">JoVision, Jordan</p>
+                <p className="text-muted-foreground mb-4">{t("JoVisionWork")}</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Developed mobile applications using React Native</li>
-                  <li>• Implemented responsive UI components and improved user experience</li>
-                  <li>• Debugged and optimized performance on Android devices</li>
+                  <li>• {t("JoPoint1")}</li>
+                  <li>• {t("JoPoint2")}</li>
+                  <li>• {t("JoPoint3")}</li>
                 </ul>
               </Card>
-              <div className="absolute left-8 top-8 w-3 h-3 bg-primary rounded-full md:left-1/2 md:-translate-x-1/2" />
+              <div
+                className={`absolute top-8 w-3 h-3 rounded-full ${lang === "ar"
+                    ? "bg-primary right-8 md:right-1/2 md:translate-x-1/2"
+                    : "bg-primary left-8 md:left-1/2 md:-translate-x-1/2"
+                  }`}
+              />
             </div>
 
           </div>
@@ -340,14 +355,14 @@ export default function Portfolio() {
       <section id="skills" className="py-24 px-6">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            Technical <span className="text-primary">Skills</span>
+            <span className="text-primary">{t("skills")}</span>
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur hover:border-primary/40 transition-colors">
               <div className="flex items-center gap-3 mb-6">
                 <Code className="h-6 w-6 text-primary" />
-                <h3 className="text-xl font-bold">Development</h3>
+                <h3 className="text-xl font-bold">{t("development")}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -376,7 +391,7 @@ export default function Portfolio() {
             <Card className="p-8 border-accent/20 bg-card/50 backdrop-blur hover:border-accent/40 transition-colors">
               <div className="flex items-center gap-3 mb-6">
                 <Shield className="h-6 w-6 text-accent" />
-                <h3 className="text-xl font-bold">Cybersecurity</h3>
+                <h3 className="text-xl font-bold">{t("cybersecurity")}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -401,7 +416,7 @@ export default function Portfolio() {
             <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur hover:border-primary/40 transition-colors">
               <div className="flex items-center gap-3 mb-6">
                 <Terminal className="h-6 w-6 text-primary" />
-                <h3 className="text-xl font-bold">Tools & Others</h3>
+                <h3 className="text-xl font-bold">{t("tools")}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {["Git", "GitHub", "Linux", "Windows", "VirtualBox", "Figma", "REST APIs", "JSON"].map((skill) => (
@@ -422,7 +437,7 @@ export default function Portfolio() {
       <section id="projects" className="py-24 px-6 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            Featured <span className="text-primary">Projects</span>
+            {parseRichText(t("projects"))}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -433,18 +448,17 @@ export default function Portfolio() {
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
                 <span className="px-3 py-1 text-xs rounded-full bg-accent/10 text-accent border border-accent/20">
-                  Graduation Project
+                  {t("graduationProject")}
                 </span>
               </div>
-              <h3 className="text-xl font-bold mb-3">UMBRA</h3>
+              <h3 className="text-xl font-bold mb-3 text-center">UMBRA</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                OSINT-powered tool for generating targeted password lists using AI. Fine-tuned GPT-2 model achieving 50%
-                close-match accuracy in password generation.
+                {t("UMBRADes")}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">Python</span>
                 <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">GPT-2</span>
-                <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">Flask</span>
+                <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">Python/Flask</span>
                 <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">OSINT</span>
               </div>
               <a
@@ -453,7 +467,7 @@ export default function Portfolio() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-medium text-primary hover:underline"
               >
-                View on GitHub <ExternalLink className="h-4 w-4" />
+                {t("viewOnGithub")} <ExternalLink className="h-4 w-4" />
               </a>
             </Card>
 
@@ -467,14 +481,13 @@ export default function Portfolio() {
                   Full-Stack
                 </span>
               </div>
-              <h3 className="text-xl font-bold mb-3">TaskSentinel</h3>
+              <h3 className="text-xl font-bold mb-3 text-center">TaskSentinel</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                Task management app with React Native frontend and Python Flask backend. Logs operations to Splunk via
-                HEC for real-time Blue Team simulations.
+                 {t("TaskSintinelDes")}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-2 py-1 text-xs rounded bg-accent/10 text-accent">React Native</span>
-                <span className="px-2 py-1 text-xs rounded bg-accent/10 text-accent">Flask</span>
+                <span className="px-2 py-1 text-xs rounded bg-accent/10 text-accent">Python/Flask</span>
                 <span className="px-2 py-1 text-xs rounded bg-accent/10 text-accent">Splunk</span>
               </div>
               <a
@@ -483,7 +496,7 @@ export default function Portfolio() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-medium text-accent hover:underline"
               >
-                View on GitHub <ExternalLink className="h-4 w-4" />
+                {t("viewOnGithub")} <ExternalLink className="h-4 w-4" />
               </a>
             </Card>
 
@@ -494,13 +507,12 @@ export default function Portfolio() {
                   <Code className="h-6 w-6 text-primary" />
                 </div>
                 <span className="px-3 py-1 text-xs rounded-full bg-accent/10 text-accent border border-accent/20">
-                  Mobile App
+                  {t("mobileApp")}
                 </span>
               </div>
-              <h3 className="text-xl font-bold mb-3">WannaChat</h3>
+              <h3 className="text-xl font-bold mb-3 text-center">WannaChat</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                Secure messaging app with React Native frontend and C#/.NET backend. Features real-time WebSocket
-                communication and MongoDB storage.
+                 {t("WannachatDes")}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">React Native</span>
@@ -513,7 +525,7 @@ export default function Portfolio() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-medium text-primary hover:underline"
               >
-                View on GitHub <ExternalLink className="h-4 w-4" />
+                {t("viewOnGithub")} <ExternalLink className="h-4 w-4" />
               </a>
             </Card>
           </div>
@@ -524,7 +536,7 @@ export default function Portfolio() {
       <section id="contact" className="py-24 px-6">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            Get In <span className="text-primary">Touch</span>
+            {parseRichText(t("contact"))}
           </h2>
 
           {/* Contact Info */}
@@ -535,7 +547,7 @@ export default function Portfolio() {
             >
               <Card className="p-6 border-primary/20 bg-card/50 backdrop-blur text-center hover:border-primary/40 transition-colors cursor-pointer">
                 <Mail className="h-8 w-8 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Email</h3>
+                <h3 className="font-semibold mb-2">{t("email")}</h3>
                 <p className="text-sm text-muted-foreground hover:text-primary transition-colors break-all">
                   abdulrhmanammourah@gmail.com
                 </p>
@@ -609,19 +621,19 @@ export default function Portfolio() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
-                      Name
+                      {t("contactName")}
                     </label>
                     <Input
                       id="name"
                       name="entry.2005620554"
-                      placeholder="Your name"
+                      placeholder={t("contactNamePH")}
                       required
                       disabled={formStatus === "sending"}
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">
-                      Email
+                      {t("email")}
                     </label>
                     <Input
                       id="email"
@@ -636,12 +648,12 @@ export default function Portfolio() {
 
                 <div className="space-y-2">
                   <label htmlFor="subject" className="text-sm font-medium">
-                    Subject
+                    {t("subject")}
                   </label>
                   <Input
                     id="subject"
                     name="entry.1065046570"
-                    placeholder="What's this about?"
+                    placeholder={t("contactSubject")}
                     required
                     disabled={formStatus === "sending"}
                   />
@@ -649,12 +661,12 @@ export default function Portfolio() {
 
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
-                    Message
+                    {t("message")}
                   </label>
                   <Textarea
                     id="message"
                     name="entry.1166974658"
-                    placeholder="Tell me about your project or inquiry..."
+                    placeholder={t("contactMessage")}
                     rows={6}
                     required
                     disabled={formStatus === "sending"}
@@ -670,11 +682,11 @@ export default function Portfolio() {
                   {formStatus === "sending" ? (
                     <>
                       <span className="animate-spin mr-2">⏳</span>
-                      Sending...
+                      {t("Sending")}...
                     </>
                   ) : (
                     <>
-                      Send Message
+                      {t("SendMessage")}
                       <Send className="ml-2 h-4 w-4" />
                     </>
                   )}
@@ -689,9 +701,9 @@ export default function Portfolio() {
       <footer className="border-t border-border/40 py-8 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">© 2025 Abdel-Rahman Amoorah. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground"> © 2025 {t("name")}. {t("rights")}</p>
             <p className="text-sm text-muted-foreground">
-              Built with <span className="text-primary"><a href="mailto:abdulrhmanammourah@gmail.com">Benaa-ai</a></span>
+              {t("builtWith")} <span className="text-primary"><a href="mailto:abdulrhmanammourah@gmail.com">Benaa-ai</a></span>
             </p>
           </div>
         </div>
