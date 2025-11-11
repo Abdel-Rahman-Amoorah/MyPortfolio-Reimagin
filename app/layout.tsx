@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://abdel-rahman-amoorah.github.io/MyPortfolio/"),
   title: "Abdel-Rahman Amoorah Portfolio",
   description:
-    "Full Stack Developer and Cybersecurity Specialist with expertise in React, Node.js, and security operations. Building secure, responsive applications.",
+    " I'm Abdel-Rahman Amoorah — a cybersecurity graduate from JUST University with hands-on experience building secure, modern applications across mobile, Full Stack Developer and Cybersecurity Specialist with expertise in React, Node.js, and security operations. Building secure, responsive applications.",
   viewport: "width=device-width, initial-scale=1",
   icons: {
     icon: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Abdel-Rahman Amoorah Portfolio",
     description:
-      "Explore projects by Abdel-Rahman — Full Stack Developer and Cybersecurity Specialist with React, Node.js, and security expertise.",
+      " I'm Abdel-Rahman Amoorah — a cybersecurity graduate from JUST University with hands-on experience building secure, modern applications across mobile, Explore projects by Abdel-Rahman — Full Stack Developer and Cybersecurity Specialist with React, Node.js, and security expertise.",
     url: "https://abdel-rahman-amoorah.github.io/MyPortfolio",
     siteName: "Abdel-Rahman Amoorah Portfolio",
     images: [
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Abdel-Rahman Amoorah Portfolio",
     description:
-      "Full Stack Developer and Cybersecurity Specialist — React, Node.js, and security operations expert.",
+      "I'm Abdel-Rahman Amoorah — a cybersecurity graduate from JUST University with hands-on experience building secure, modern applications across mobile, Full Stack Developer and Cybersecurity Specialist — React, Node.js, and security operations expert.",
     images: ["/og-image.png"],
   },
 }
