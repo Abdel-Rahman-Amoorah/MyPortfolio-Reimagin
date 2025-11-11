@@ -72,5 +72,6 @@
     "mobileApp":"Mobile App",
     "WannachatDes":"Secure messaging app with React Native frontend and C#/.NET backend. Features real-time WebSocket communication and MongoDB storage.",
     "TaskSintinelDes":"Task management app with React Native frontend and Python Flask backend. Logs operations to Splunk via HEC for real-time Blue Team simulations.",
-    "UMBRADes":"OSINT-powered tool for generating targeted password lists using AI. Fine-tuned GPT-2 model achieving 50% close-match accuracy in password generation."
+    "UMBRADes":"OSINT-powered tool for generating targeted password lists using AI. Fine-tuned GPT-2 model achieving 50% close-match accuracy in password generation.",
+    "viewMyServices":"My Services"
 }

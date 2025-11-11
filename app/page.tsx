@@ -23,6 +23,7 @@ import {
   X,
   Send,
   CheckCircle2,
+  BriefcaseBusiness,
 } from "lucide-react"
 
 
@@ -122,7 +123,6 @@ export default function Portfolio() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Button size="lg" onClick={() => scrollToSection("projects")} className="group">
                 {t("viewProjects")}
-                <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button size="lg" variant="outline" onClick={() => scrollToSection("contact")}>
                 {t("getInTouch")}
@@ -342,8 +342,8 @@ export default function Portfolio() {
               </Card>
               <div
                 className={`absolute top-8 w-3 h-3 rounded-full ${lang === "ar"
-                    ? "bg-primary right-8 md:right-1/2 md:translate-x-1/2"
-                    : "bg-primary left-8 md:left-1/2 md:-translate-x-1/2"
+                  ? "bg-primary right-8 md:right-1/2 md:translate-x-1/2"
+                  : "bg-primary left-8 md:left-1/2 md:-translate-x-1/2"
                   }`}
               />
             </div>
@@ -483,7 +483,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-center">TaskSentinel</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                 {t("TaskSintinelDes")}
+                {t("TaskSintinelDes")}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-2 py-1 text-xs rounded bg-accent/10 text-accent">React Native</span>
@@ -512,7 +512,7 @@ export default function Portfolio() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-center">WannaChat</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                 {t("WannachatDes")}
+                {t("WannachatDes")}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="px-2 py-1 text-xs rounded bg-primary/10 text-primary">React Native</span>
@@ -588,9 +588,9 @@ export default function Portfolio() {
                 <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                   <CheckCircle2 className="h-8 w-8 text-primary" />
                 </div>
-                <h4 className="text-xl font-semibold mb-2">Message Sent!</h4>
+                <h4 className="text-xl font-semibold mb-2">{t("sent")}</h4>
                 <p className="text-muted-foreground">
-                  Thank you for reaching out. I’ll reply in a short time.
+                  {t("thankYou")}
                 </p>
               </div>
             ) : (

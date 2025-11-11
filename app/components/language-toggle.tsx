@@ -5,7 +5,7 @@ import { Button } from "./ui/button"
 import { useState, useEffect } from "react"
 
 export function LanguageToggle() {
-  const [lang, setLang] = useState("en")
+  const [lang, setLang] = useState<string | null>(null)
 
   useEffect(() => {
     const saved = localStorage.getItem("lang") || "en"
@@ -14,15 +14,14 @@ export function LanguageToggle() {
     document.documentElement.dir = saved === "ar" ? "rtl" : "ltr"
   }, [])
 
+  // 🧠 Don’t render anything until hydrated
+  if (lang === null) return null
+
   const toggleLanguage = () => {
     const newLang = lang === "en" ? "ar" : "en"
     localStorage.setItem("lang", newLang)
-
-    // apply immediately before reload
     document.documentElement.lang = newLang
     document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr"
-
-    // Force reload for clean translation update
     window.location.reload()
   }
 
