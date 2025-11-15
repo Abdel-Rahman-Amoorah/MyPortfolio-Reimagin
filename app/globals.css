@@ -204,11 +204,11 @@ html {
 html.theme-transition,
 html.theme-transition * {
   transition:
-    background-color 0.4s ease,
-    color 0.4s ease,
-    border-color 0.4s ease,
-    fill 0.4s ease,
-    stroke 0.4s ease;
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    fill 0.2s ease,
+    stroke 0.2s ease;
 }
 
 @keyframes fade-in {

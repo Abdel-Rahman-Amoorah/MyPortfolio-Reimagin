@@ -23,7 +23,6 @@ import {
   X,
   Send,
   CheckCircle2,
-  BriefcaseBusiness,
 } from "lucide-react"
 
 
@@ -41,7 +40,7 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-background ">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl mx-20">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl mx-20 rounded-b-2xl">
         <div className="container mx-auto px-6">
           <div className="flex h-16 items-center justify-between">
             <div className="text-2xl font-bold hover:bg-primary/35 rounded-2xl">
