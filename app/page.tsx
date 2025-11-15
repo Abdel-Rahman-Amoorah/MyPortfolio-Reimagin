@@ -365,6 +365,8 @@ export default function Portfolio() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {[
+                  "OOP",
+                  "DS",
                   "React",
                   "React Native",
                   "Next.js",
