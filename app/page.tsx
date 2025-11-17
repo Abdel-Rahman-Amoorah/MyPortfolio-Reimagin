@@ -10,8 +10,8 @@ import { useTheme } from "./components/theme-provider"
 import { LanguageToggle } from "./components/language-toggle"
 import { useTranslation } from "./lib/useTranslation"
 import { parseRichText } from "./lib/parseRichText"
-import LogoWhite from "../public/LogoWhiteMode.webp"
-import LogoDark from "../public/LogoDarkMode.webp"
+import LogoWhite from "../public/WhiteMode.webp"
+import LogoDark from "../public/DarkMode.webp"
 
 import {
   Shield,
@@ -31,7 +31,7 @@ import Image from "next/image"
 
 
 export default function Portfolio() {
-  const {theme} = useTheme()
+  const { theme } = useTheme()
   const { t, lang } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent">("idle")
@@ -48,8 +48,8 @@ export default function Portfolio() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl mx-20 rounded-b-2xl">
         <div className="container mx-auto px-6">
           <div className="flex h-16 items-center justify-between">
-            <div className="w-12 h-12">
-            {theme === "dark" ? <Image src={LogoDark} alt="AA"/> : <Image src={LogoWhite} alt="AA"/> }
+            <div className="w-14 h-14 hover:scale-115 transition duration-200 cursor-pointer" onClick={() => { window.scrollTo(0, 0) }}>
+              {theme === "dark" ? <Image src={LogoDark} alt="AA" /> : <Image src={LogoWhite} alt="AA" />}
             </div>
 
             {/* Desktop Menu */}

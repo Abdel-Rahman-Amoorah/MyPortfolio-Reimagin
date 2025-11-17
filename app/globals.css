@@ -68,8 +68,8 @@
   --accent-foreground: oklch(0.98 0 0);
 
   /* Background: Clean white */
-  --background: oklch(0.98 0 0);
-  --foreground: oklch(0.15 0.01 240);
+  --background: #f8f8f8;
+  --foreground: #080c0f;
 
   /* Card: Slight gray */
   --card: oklch(0.96 0 0);
