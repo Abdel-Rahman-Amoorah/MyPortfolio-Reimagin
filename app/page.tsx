@@ -223,11 +223,11 @@ export default function Portfolio() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="h-5 w-5 rounded-full border-2 border-primary/40 mt-1 shrink-0" />
+                    {/* <div className="h-5 w-5 rounded-full border-2 border-primary/40 mt-1 shrink-0" />
                     <div>
                       <p className="font-semibold">CCNA</p>
                       <p className="text-sm text-muted-foreground">{t("CCNA")}</p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </Card>
@@ -273,6 +273,29 @@ export default function Portfolio() {
             className={`space-y-8 relative before:absolute before:top-0 before:bottom-0 before:w-px before:bg-linear-to-b before:from-primary before:via-accent before:to-primary ${lang === "ar" ? "before:right-8 md:before:right-1/2" : "before:left-8 md:before:left-1/2"
               }`}
           >
+
+            {/* IT Specialist */}
+            <div className="relative md:grid md:grid-cols-2 md:gap-8">
+              <div className="md:order-1 md:pl-12">
+                <span className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-semibold mb-2">
+                  {t("RapidDate")}
+                </span>
+              </div>
+              <Card className="ml-16 md:ml-0 p-6 border-accent/20 bg-card/80 backdrop-blur md:order-0">
+                <div className="flex items-center gap-3 mb-3">
+                  <Shield className="h-5 w-5 text-accent" />
+                  <h3 className="text-xl font-bold">{t("RapidPostion")}</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">{t("Rapidwork")}</p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• {t("RapidPoint1")}</li>
+                  <li>• {t("RapidPoint2")}</li>
+                  <li>• {t("RapidPoint3")}</li>
+                </ul>
+              </Card>
+              <div className="absolute left-8 top-8 w-3 h-3 bg-accent rounded-full md:left-1/2 md:-translate-x-1/2" />
+            </div>
+
             {/* Freelance \*/}
             <div className={`relative md:grid md:grid-cols-2 md:gap-8 ${lang === "ar" ? "md:[direction:rtl]" : ""}`}>
               <div className={lang === "ar" ? "md:text-left md:pl-12" : "md:text-right md:pr-12"}>
